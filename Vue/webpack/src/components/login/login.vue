@@ -24,7 +24,10 @@
                                 <el-radio label="student">学生</el-radio>
                             </el-radio-group>
                         </el-form-item>
-
+                        <el-form-item label="验证码" prop="code">
+                            <el-input v-model="form.code" v-bind:style="{width:100+'px'}" ></el-input>
+                            <img :src="src" @click="src='/home/code.php?id='+Math.random()" alt="" v-bind:style="{marginBottom:6+'px'}">
+                        </el-form-item>
                         <el-form-item>
                             <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
                         </el-form-item>
@@ -35,13 +38,18 @@
     </div>
 </template>
 <script>
+    import ElFormItem from "../../../node_modules/element-ui/packages/form/src/form-item.vue";
+
     export default {
+        components: {ElFormItem},
         data() {
             return {
+                src:'/home/code.php',
                 form: {
                     name: '',
                     pass: '',
                     type: '',
+                    code:''
                 },
                 rules: {
                     name: [
@@ -74,8 +82,9 @@
                                 }else if(this.form.type == 'teacher'){
                                     this.$router.push('teacherindex');
                                 }else if(this.form.type=='student'){
-                                    this.$router.push('manger');
+                                    this.$router.push('studetindex/studetexat');
                                 }
+                                sessionStorage.setItem('user',this.form.name)
                             }else if(res.body == 2){
                                 this.$message({
                                     message: '密码错误',
@@ -86,15 +95,22 @@
                                     message: '用户名不存在',
                                     type: 'warning'
                                 });
+                            }else if(res.body==4){
+                                this.$message({
+                                    message: '验证码不正确',
+                                    type: 'warning'
+                                });
                             }
+
                         })
                     } else {
-                        console.log('error submit!!');
+//                        console.log('error submit!!');
                         return false;
                     }
                 });
             }
-        }
+        },
+
     }
 </script>
 <style>

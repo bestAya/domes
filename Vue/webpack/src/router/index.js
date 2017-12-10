@@ -39,10 +39,14 @@ import teacherindex from '../components/teacher/teacherindex.vue'
 import teachertest from '../components/teacher/teachertest.vue'
 import teachertestAdd from '../components/teacher/teachertestAdd.vue'
 import teachertestUp from '../components/teacher/teachertestUp.vue'
-
-
-
-
+///////////////////////////试卷管理//////////////////////////////////////////////
+import papre from '../components/teacher/papre.vue'
+import edit from '../components/teacher/edit.vue'
+import PapreAdd from '../components/teacher/PapreAdd.vue'
+///////////////////////////学生考试//////////////////////////////////////////////////////
+import studetindex from '../components/student/studetindex.vue'
+import studetexat from '../components/student/studetexat.vue'
+import studetpapre from '../components/student/studetpapre.vue'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -140,7 +144,7 @@ export default new Router({
             }
         ]
       },
-      {
+    {
         path:'/teacherindex',
           name:'teacherindex',
           component:teacherindex,
@@ -159,9 +163,41 @@ export default new Router({
                   path: 'teachertestUp',
                   name:'teachertestUp',
                   component:teachertestUp
+              },
+              {
+                  path: 'papre',
+                  name:'papre',
+                  component:papre
+              },
+              {
+                  path: 'edit',
+                  name:'edit',
+                  component:edit
+              },
+              {
+                  path:'PapreAdd',
+                  name:'PapreAdd',
+                  component:PapreAdd
               }
 
           ]
-      }
+      },
+    {
+        path:'/studetindex',
+        name:'studetindex',
+        component:studetindex,
+        children:[
+            {
+                path:'studetexat',
+                name:'studetexat',
+                component:studetexat
+            },
+            {
+                path:'studetpapre',
+                name:'studetpapre',
+                component:studetpapre
+            }
+        ]
+    }
   ]
 })
